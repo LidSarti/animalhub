@@ -30,7 +30,7 @@ export default function Navbar() {
             <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-100 rounded-md shadow-lg py-1 z-50">
               {isAuthenticated ? (
                 <>
-                  <Link href="/animais/novo" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cadastrar Animal</Link>
+                  <Link href="/cadastroAnimal" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cadastrar Animal</Link>
                   <Link href="/usuarios" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Gerenciar Usuários</Link>
                   <Link href="/ong/editar" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Gerenciar ONG</Link>
                   <hr className="my-1" />
