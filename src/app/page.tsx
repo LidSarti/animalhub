@@ -222,6 +222,19 @@ export default function HomePage() {
           </button>
         </div>
       )}
+
+      {/* Link temporário para visualizar detalhes */}
+      <div className="mt-8 p-4 bg-yellow-100 border border-yellow-300 rounded-lg">
+        <h3 className="font-semibold text-yellow-800 mb-2">Links Temporários para Teste:</h3>
+        <div className="flex gap-4">
+          <Link href="/details/8" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Ver Detalhes do Animal ID 8
+          </Link>
+          <Link href="/details/21" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+            Ver Detalhes do Animal ID 21
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
