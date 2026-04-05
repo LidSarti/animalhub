@@ -63,6 +63,10 @@ export default function HomePage() {
     }
   };
 
+  const selecionarTipo = (id: string) => {
+    setFiltros({ ...filtros, tipoAnimal: filtros.tipoAnimal === id ? "" : id });
+  };
+
   useEffect(() => {
     fetchAnimais();
     carregarFiltros();
@@ -76,29 +80,57 @@ export default function HomePage() {
 
       <div className="flex flex-wrap justify-center gap-3 mb-10 p-4 bg-slate-50 rounded-xl shadow-sm">
         
-        <button 
-          onClick={() => setFiltros({...filtros, tipoAnimal: "1"})}
-          className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition shadow-sm bg-white"
-        >
-          <Image src="/assets/icone cachorro.png" alt="Cachorros" width={24} height={24} />
-          <span className="font-medium">Cachorros</span>
-        </button>
-
-        <button 
-          onClick={() => setFiltros({...filtros, tipoAnimal: "2"})}
-          className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition shadow-sm bg-white"
-        >
-          <Image src="/assets/icone gato.png" alt="Gatos" width={24} height={24} />
-          <span className="font-medium">Gatos</span>
-        </button>
-
-        <button 
-          onClick={() => setFiltros({...filtros, tipoAnimal: "3"})}
-          className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition shadow-sm bg-white"
-        >
-          <Image src="/assets/icone animais.png" alt="Outros" width={24} height={24} />
-          <span className="font-medium">Outros</span>
-        </button>
+      <button 
+        onClick={() => selecionarTipo("1")}
+        className={`flex items-center gap-2 px-4 py-2 border rounded-lg transition shadow-sm ${
+          filtros.tipoAnimal === "1" 
+            ? "bg-blue-600 text-white border-blue-600"
+            : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+        }`}
+      >
+        <Image 
+          src="/assets/icone cachorro.png" 
+          alt="Cachorros" 
+          width={24} 
+          height={24} 
+          className={filtros.tipoAnimal === "1" ? "brightness-0 invert" : ""}
+        />
+        <span className="font-medium">Cachorros</span>
+      </button>
+      <button 
+        onClick={() => selecionarTipo("2")}
+        className={`flex items-center gap-2 px-4 py-2 border rounded-lg transition shadow-sm ${
+          filtros.tipoAnimal === "2" 
+            ? "bg-blue-600 text-white border-blue-600" 
+            : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+        }`}
+      >
+        <Image 
+          src="/assets/icone gato.png" 
+          alt="Gatos" 
+          width={24} 
+          height={24} 
+          className={filtros.tipoAnimal === "2" ? "brightness-0 invert" : ""}
+        />
+        <span className="font-medium">Gatos</span>
+      </button>
+      <button 
+        onClick={() => selecionarTipo("3")}
+        className={`flex items-center gap-2 px-4 py-2 border rounded-lg transition shadow-sm ${
+          filtros.tipoAnimal === "3" 
+            ? "bg-blue-600 text-white border-blue-600" 
+            : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+        }`}
+      >
+        <Image 
+          src="/assets/icone animais.png" 
+          alt="Outros" 
+          width={24} 
+          height={24} 
+          className={filtros.tipoAnimal === "3" ? "brightness-0 invert" : ""}
+        />
+        <span className="font-medium">Outros</span>
+      </button>
 
        <select 
         name="raca" 
@@ -124,29 +156,33 @@ export default function HomePage() {
         ))}
       </select>
 
-      <select 
-        name="porteAnimal" 
-        value={filtros.porteAnimal}
-        onChange={(e) => setFiltros({...filtros, porteAnimal: e.target.value})}
-        className="form-select"
-      >
-        <option value="">Porte Animal</option>
-        {opcoesFiltros.porteAnimal.map((porteAnimal) => (
-          <option key={porteAnimal} value={porteAnimal}>{porteAnimal}</option>
-        ))}
-      </select>
+        <select 
+          name="porteAnimal" 
+          value={filtros.porteAnimal}
+          onChange={(e) => setFiltros({...filtros, porteAnimal: e.target.value})}
+          className="form-select"
+        >
+          <option value="">Porte Animal</option>
+          {opcoesFiltros.porteAnimal.map((item: any) => (
+            <option key={item.id} value={item.id}>
+              {item.porte}
+            </option>
+          ))}
+        </select>
 
         <select 
-        name="status" 
-        value={filtros.status}
-        onChange={(e) => setFiltros({...filtros, status: e.target.value})}
-        className="form-select"
-      >
+          name="status" 
+          value={filtros.status}
+          onChange={(e) => setFiltros({...filtros, status: e.target.value})}
+          className="form-select"
+        >
         <option value="">Status</option>
-        {opcoesFiltros.status.map((status) => (
-          <option key={status} value={status}>{status}</option>
+        {opcoesFiltros.status.map((item: any) => (
+          <option key={item.id} value={item.id}>
+            {item.descricao}
+          </option>
         ))}
-      </select>
+        </select>
 
         <button 
           onClick={() => fetchAnimais(1)}
@@ -158,7 +194,7 @@ export default function HomePage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {animais?.map((animal: any) => (
-          <Link key={animal.id} href={`/animais/${animal.id}`} className="group">
+          <Link key={animal.id} href={`/details/${animal.id}`} className="group">
             <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 h-full">
               
               <div className="relative h-52 w-full">
@@ -222,19 +258,6 @@ export default function HomePage() {
           </button>
         </div>
       )}
-
-      {/* Link temporário para visualizar detalhes */}
-      <div className="mt-8 p-4 bg-yellow-100 border border-yellow-300 rounded-lg">
-        <h3 className="font-semibold text-yellow-800 mb-2">Links Temporários para Teste:</h3>
-        <div className="flex gap-4">
-          <Link href="/details/8" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            Ver Detalhes do Animal ID 8
-          </Link>
-          <Link href="/details/21" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-            Ver Detalhes do Animal ID 21
-          </Link>
-        </div>
-      </div>
     </div>
   );
 }
